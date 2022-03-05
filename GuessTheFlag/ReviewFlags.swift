@@ -4,23 +4,11 @@
 //
 //  Created by Michael M. Mayer on 2/22/22.
 //
+// Inspired by Paul Hudson at [HackingWithSwift.com](https://www.hackingwithswift.com), this started as an exercise that was part of his [100 Days of SwiftUI](https://www.hackingwithswift.com/100/swiftui).
 
 import SwiftUI
 
-struct HiddenNavigationBar: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .navigationBarTitle("Flags of the World", displayMode: .inline)
-            .navigationBarHidden(true)
-    }
-}
-
-extension View {
-    func hiddenNavigationBarStyle() -> some View {
-        modifier( HiddenNavigationBar() )
-    }
-}
-
+// Displays all the flags in the game along with their country name
 struct ReviewFlags: View {
     private var countriesSorted = countries.sorted()
     var body: some View {
@@ -34,8 +22,6 @@ struct ReviewFlags: View {
                     Text(countriesSorted[row * 2 + col])
                 }
             }
-            //remove the default Navigation Bar space:
-            //.hiddenNavigationBarStyle()
         }
     }
 }

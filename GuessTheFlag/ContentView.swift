@@ -4,11 +4,14 @@
 //
 //  Created by Michael M. Mayer on 8/26/21.
 //
+// Inspired by Paul Hudson at [HackingWithSwift.com](https://www.hackingwithswift.com), this started as an exercise that was part of his [100 Days of SwiftUI](https://www.hackingwithswift.com/100/swiftui).
 
 import SwiftUI
 
+// A list of countries that have flag assets in the app
 var countries = ["China", "Iceland", "Mali", "Spain", "Algeria", "Columbia", "Indonesia", "Mauritius", "Sudan", "Ireland", "Switzerland", "Armenia", "Cuba", "Israel", "Morocco", "Syria", "Australia", "Denmark", "Italy", "Nigeria", "Thailand", "Austria", "Estonia", "Jamaica", "Norway", "Turkey", "Bangladesh", "Finland", "Japan", "Poland", "UK", "Belgium", "Kuwait", "Republic of the Congo", "US", "Bolivia", "France", "Laos", "Romania", "Ukraine", "Botswana", "Germany", "Latvia", "Russia", "Vietnam", "Bulgaria", "Greece", "Liberia", "Sierra Leone", "Yemen", "Canada", "Guinea", "Lithuania", "Singapore", "Guyana", "Somalia", "Chile", "Hungary", "Madagascar", "South Africa"].shuffled()
 
+// A modifier for flag umages
 struct FlagImage: ViewModifier {
     func body(content: Content) -> some View {
         content
@@ -32,14 +35,7 @@ struct ContentView: View {
     
     @State private var score = 0
     @State private var countrySelected = ""
-    
-    var percentCorrect: String {
-        let percent = score != 0 ? Float(score) / Float(questionCount) * 100 : 0.0
-        let formatter = NumberFormatter()
-        formatter.maximumFractionDigits = 2
-        return formatter.string(for: percent)!
-    }
-    
+        
     var body: some View {
         NavigationView {
             ZStack {
@@ -91,6 +87,8 @@ struct ContentView: View {
         }
     }
     
+    // These are the actions taken when a flag is tapped.
+    // A new score is calculated and we set up for the next round
     func flagTapped(num: Int) {
         questionCount += 1
         if num == correctAnswer {
@@ -103,11 +101,13 @@ struct ContentView: View {
         newQuestion()
     }
     
+    // Sets up the new round
     func newQuestion() {
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
     }
     
+    // Starts a new round in a new game by shuffling and resetting values
     func reset() {
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
